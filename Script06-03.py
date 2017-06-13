@@ -41,34 +41,21 @@ if __name__ == '__main__':
     df = pd.read_csv(csv_filename, sep=',', encoding="latin-1",
                      names=cols, header=0, dtype='str')
 
-    # print df.index.tolist()
-    # exit()
     train = df[requiredColumns]
 
     # Define target feature
     target = 'Label'
 
-    RANDOM_STATE = 42
-    LW = 2
-
     cv = StratifiedKFold(n_splits=3)
 
     y = df["Label"].astype(int)
-    idx = [11639, 11641, 11642, 11643, 11644, 11645, 11646, 11647, 11648, 11649]
 
-    training = pd.get_dummies(df[requiredColumns], columns=categoricalColumns)
-
-    X = training
+    X = pd.get_dummies(df[requiredColumns], columns=categoricalColumns)
 
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1)
     lr = LogisticRegression(penalty='l2', class_weight='balanced', solver='sag')
-    # print X.dtypes.tolist()
-    # exit()
-    # for train, test in cv.split(X, y):
-    #     print X.iloc[train].astype(float)
-    #
-    # exit()
+
     stdsc = StandardScaler()
 
     mean_tpr = 0.0
